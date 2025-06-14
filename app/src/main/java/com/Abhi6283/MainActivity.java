@@ -8,6 +8,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import Abhi6283.smartaudiovisualizer.SmartAudioVisualizer;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -20,6 +22,10 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        SmartAudioVisualizer visualizer = findViewById(R.id.barVisualizer);
+        visualizer.simulateDemoWave();
+
 
 
 
