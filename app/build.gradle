@@ -39,6 +39,8 @@ dependencies {
     androidTestImplementation libs.espresso.core
 
 
-    implementation project(':SmartAudioVisualizer')
+    implementation 'com.github.ankug6283:SmartAudioVisualizer:v1.0'
+
+
 
 }
