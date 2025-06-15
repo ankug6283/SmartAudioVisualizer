@@ -7,7 +7,6 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 
-
 import java.util.Random;
 
 public class SmartAudioVisualizer extends View {
@@ -79,7 +78,10 @@ public class SmartAudioVisualizer extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        int x = 0;
+        int totalBarSpace = barCount * barWidth + (barCount - 1) * barSpacing;
+        float startX = (getWidth() - totalBarSpace) / 2f;
+
+        float x = startX;
         for (int i = 0; i < barCount; i++) {
             int height = barHeights[i];
             int startY = (getHeight() - height) / 2;
@@ -90,5 +92,38 @@ public class SmartAudioVisualizer extends View {
 
     private int dpToPx(int dp) {
         return Math.round(dp * getResources().getDisplayMetrics().density);
+    }
+
+    // ===== DYNAMIC SETTERS =====
+
+    public void setBarCount(int count) {
+        this.barCount = count;
+        this.barHeights = new int[barCount];
+        invalidate();
+    }
+
+    public void setBarWidth(int widthPx) {
+        this.barWidth = widthPx;
+        barPaint.setStrokeWidth(barWidth);
+        invalidate();
+    }
+
+    public void setBarSpacing(int spacingPx) {
+        this.barSpacing = spacingPx;
+        invalidate();
+    }
+
+    public void setBarColor(int color) {
+        this.barColor = color;
+        barPaint.setColor(color);
+        invalidate();
+    }
+
+    public void setBarSpeed(int speedMs) {
+        this.barSpeed = speedMs;
+    }
+
+    public int getBarCount() {
+        return barCount;
     }
 }
