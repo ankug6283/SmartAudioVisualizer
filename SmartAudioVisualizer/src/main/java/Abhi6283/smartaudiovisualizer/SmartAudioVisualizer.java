@@ -137,6 +137,7 @@ public class SmartAudioVisualizer extends View {
         this.barColor = color;
         barPaint.setColor(color);
         invalidate();
+
     }
 
     public void setBarSpeed(int speedMs) {
