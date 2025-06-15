@@ -11,7 +11,7 @@ import java.util.Random;
 
 public class SmartAudioVisualizer extends View {
 
-    private  int barCount;
+    private int barCount;
     private int barWidth;
     private int barSpacing;
     private int barColor;
@@ -19,7 +19,22 @@ public class SmartAudioVisualizer extends View {
 
     private int[] barHeights;
     private Paint barPaint;
-    private Random random = new Random();
+    private final Random random = new Random();
+
+    private boolean isPaused = false;
+
+    private final Runnable simulationRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (!isPaused) {
+                for (int i = 0; i < barCount; i++) {
+                    barHeights[i] = 10 + random.nextInt(getHeight());
+                }
+                invalidate();
+                postDelayed(this, barSpeed);
+            }
+        }
+    };
 
     public SmartAudioVisualizer(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -63,16 +78,21 @@ public class SmartAudioVisualizer extends View {
     }
 
     public void simulateDemoWave() {
-        postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                for (int i = 0; i < barCount; i++) {
-                    barHeights[i] = 10 + random.nextInt(getHeight());
-                }
-                invalidate();
-                simulateDemoWave(); // Loop
-            }
-        }, barSpeed);
+        isPaused = false;
+        removeCallbacks(simulationRunnable);
+        post(simulationRunnable);
+    }
+
+    public void pauseSimulation() {
+        isPaused = true;
+        removeCallbacks(simulationRunnable);
+    }
+
+    public void resumeSimulation() {
+        if (isPaused) {
+            isPaused = false;
+            post(simulationRunnable);
+        }
     }
 
     @Override
@@ -126,5 +146,4 @@ public class SmartAudioVisualizer extends View {
     public int getBarCount() {
         return barCount;
     }
-
 }
