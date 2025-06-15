@@ -11,7 +11,7 @@ import java.util.Random;
 
 public class SmartAudioVisualizer extends View {
 
-    private int barCount;
+    private  int barCount;
     private int barWidth;
     private int barSpacing;
     private int barColor;
@@ -126,4 +126,5 @@ public class SmartAudioVisualizer extends View {
     public int getBarCount() {
         return barCount;
     }
+
 }

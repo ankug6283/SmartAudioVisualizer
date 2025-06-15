@@ -50,7 +50,7 @@ dependencies {
 
 ```java
  SmartAudioVisualizer visualizer = findViewById(R.id.barVisualizer);
- visualizer.simulateDemoWave();
+// visualizer.simulateDemoWave();
 ```
 
 ---
